@@ -1,16 +1,31 @@
 <template>
-  <HeaderNav />
+  <header class="header">
+    <HeaderNav />
+  </header>
+
+  <main class="main">
+    <MainContainer />
+  </main>
 </template>
 
 <script>
+import MainContainer from './components/MainContainer.vue';
 import HeaderNav from './components/HeaderNav.vue'
 
 export default {
   name: 'App',
   components: {
-    HeaderNav
+    HeaderNav,
+    MainContainer
   }
 }
 </script>
 
-<style></style>
+<style scoped lang="scss">
+.main {
+  border-radius: 8px;
+  max-width: 600px;
+  margin: 16px auto;
+  overflow: hidden;
+}
+</style>

@@ -1,25 +1,23 @@
 <template>
-  <header>
-    <nav class="nav">
-      <div class="nav__side">
-        <a href="#" class="nav__back">
-          <img src="arrow-left.svg" alt="Back">
-        </a>
+  <nav class="nav">
+    <div class="nav__side">
+      <a href="#" class="nav__back">
+        <img src="arrow-left.svg" alt="Back">
+      </a>
 
-        <a href="#" class="nav__logo">
-          <img src="logo.svg" alt="Oddspedia Logo">
-        </a>
-      </div>
+      <a href="#" class="nav__logo">
+        <img src="logo.svg" alt="Oddspedia Logo">
+      </a>
+    </div>
 
-      <div class="nav__side">
-        <a href="#" class="nav__alert">
-          <img src="notification.svg" alt="Notification Icon">
+    <div class="nav__side">
+      <a href="#" class="nav__alert">
+        <img src="notification.svg" alt="Notification Icon">
 
-          <span class="nav__alert-index">2</span>
-        </a>
-      </div>
-    </nav>
-  </header>
+        <h6 class="nav__alert-index">2</h6>
+      </a>
+    </div>
+  </nav>
 </template>
 
 <style scoped lang="scss">
@@ -40,7 +38,7 @@
     }
 
     &:hover {
-      transform: scale(1.2);
+      transform: scale(1.3);
     }
   }
 
@@ -70,10 +68,9 @@
       width: $nav-alert-diameter;
       height: $nav-alert-diameter;
       border-radius: $nav-alert-radius;
-      color: #fff;
+      color: $white-color;
       line-height: $nav-alert-line-height;
       text-align: center;
-      font-size: $nav-alert-radius + 1;
       border: $nav-alert-border solid $dark-color;
       background-color: $accent-color;
       transition: transform .3s;
