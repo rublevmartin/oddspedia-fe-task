@@ -27,5 +27,11 @@ export default {
   max-width: 600px;
   margin: 16px auto;
   overflow: hidden;
+
+  @media #{$mobile} {
+    border-radius: 0;
+    margin: 0;
+    max-width: 100%;
+  }
 }
 </style>

@@ -29,6 +29,14 @@
   padding: 10px 32px;
   background-color: $dark-color;
 
+  @media #{$mobile} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: transparent;
+  }
+
   a {
     display: inline-block;
     transition: transform .2s;
