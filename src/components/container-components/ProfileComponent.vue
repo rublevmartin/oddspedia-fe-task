@@ -37,15 +37,32 @@
     justify-content: flex-end;
     align-items: center;
     padding: 40px 42px 53px;
+
+    @media #{$mobile} {
+      flex-direction: column;
+      padding: 0 15px;
+    }
   }
 
   &__aside {
     margin-left: 20px;
+
+    @media #{$mobile} {
+      position: relative;
+      display: flex;
+      align-items: center;
+      height: 55px;
+      margin: 0 0 39px;
+    }
   }
 
   &__content {
     position: relative;
     line-height: 0;
+
+    @media #{$mobile} {
+      margin-bottom: 51px;
+    }
   }
 
   &__badge {

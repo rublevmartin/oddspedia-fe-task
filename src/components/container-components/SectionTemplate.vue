@@ -28,12 +28,20 @@ export default {
   background-color: $white-color;
   color: $title-color;
 
+  @media #{$mobile} {
+    margin-top: 8px;
+  }
+
   &+.section {
     margin-top: 8px;
   }
 
   &__head {
     padding: 16px 15px;
+  }
+
+  &__title {
+    text-transform: uppercase;
   }
 
   &__body {

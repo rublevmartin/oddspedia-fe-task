@@ -16,6 +16,7 @@ body {
 	color: $dark-color;	
 
 	@media #{$mobile} {
+		background: $base-darker-color;
 		font-size: 18px;
 	}
 }
@@ -37,7 +38,6 @@ h1 {
 h2,h3 {
 	font-size: 14px;
 	line-height: 1.14;
-	text-transform: uppercase;
 }
 
 h4 {

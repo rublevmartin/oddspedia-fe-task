@@ -34,7 +34,8 @@
     top: 0;
     left: 0;
     right: 0;
-    background-color: transparent;
+    min-height: 55px;
+    padding: 10px 15px;
   }
 
   a {
@@ -43,6 +44,10 @@
 
     &+a {
       margin-left: 15px;
+
+      @media #{$mobile} {
+        margin-left: 10px;
+      }
     }
 
     &:hover {
