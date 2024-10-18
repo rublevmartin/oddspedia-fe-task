@@ -9,6 +9,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import MainContainer from './components/MainContainer.vue';
 import HeaderNav from './components/HeaderNav.vue';
 
@@ -40,11 +41,38 @@ export default {
       const data = await this.fetchData('/api/oddspedia-task/teams.json', 'GET');
 
       if (data) {
-        console.log('Fetched data:', data);
+        const footballTeams = data.football_teams;
+        console.log('Fetched data:', footballTeams);
+        this.setTeams(footballTeams);
+
+        //this.filterNames(footballTeams, "Stad");
       } else {
         console.error('Failed to fetch data or invalid JSON.');
       }
-    }
+    },
+
+    filterNames(data, string) {
+      const filteredTeams = [];
+      const searchString = string.toLowerCase();
+
+      data.forEach(element => {
+        const checkValues = [element.name, element.stadium];
+
+        element.leagues.forEach(league => {
+          checkValues.push(league);
+        })
+
+        checkValues.forEach(value => {
+          if (value.toLowerCase().includes(searchString)) {
+            filteredTeams.push(element);
+          }
+        })
+      });
+
+      this.filterTeams(filteredTeams);
+    },
+
+    ...mapActions(['setTeams', 'filterTeams'])
   },
 
   mounted() {

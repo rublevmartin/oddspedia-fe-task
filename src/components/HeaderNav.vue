@@ -2,17 +2,17 @@
   <nav class="nav">
     <div class="nav__side">
       <a href="#" class="nav__back">
-        <img src="arrow-left.svg" alt="Back">
+        <img src="/arrow-left.svg" alt="Back">
       </a>
 
       <a href="#" class="nav__logo">
-        <img src="logo.svg" alt="Oddspedia Logo">
+        <img src="/logo.svg" alt="Oddspedia Logo">
       </a>
     </div>
 
     <div class="nav__side">
       <a href="#" class="nav__alert">
-        <img src="notification.svg" alt="Notification Icon">
+        <img src="/notification.svg" alt="Notification Icon">
 
         <h6 class="nav__alert-index">2</h6>
       </a>

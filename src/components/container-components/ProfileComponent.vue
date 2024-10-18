@@ -8,7 +8,7 @@
       </div>
 
       <div class="profile__content">
-        <img src="avatar.png" alt="Avatar Picture" srcset="avatar.png 1x, avatar@2x.png 2x, avatar@3x.png 3x"
+        <img src="/avatar.png" alt="Avatar Picture" srcset="/avatar.png 1x, /avatar@2x.png 2x, /avatar@3x.png 3x"
           class="profile__image" />
 
         <h6 class="profile__badge">
