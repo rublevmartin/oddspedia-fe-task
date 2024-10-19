@@ -13,7 +13,8 @@
   </div>
 
   <div v-if="teams.length > 0" class="dropdown-field">
-    <PanelTemplate v-for="team in teams" :team="team" :isActive="false" />
+    <PanelTemplate v-for="team in teams" :team="team" :isActive="false" :searchValue="searchValue"
+      :searchValueLength="searchValueLength" :timeOutInProggress="timeOutInProggress" />
   </div>
 
   <NoResults v-else-if="searchValueLength > 2 && !timeOutInProggress" />

@@ -6,7 +6,8 @@
       </a>
 
       <a href="#" class="nav__logo">
-        <img src="/logo.svg" alt="Oddspedia Logo">
+        <img class="nav__logo-small" src="/logo.svg" alt="Oddspedia Logo">
+        <img class="nav__logo-large" src="/logo-dark.svg" alt="Oddspedia Logo Large">
       </a>
     </div>
 
@@ -57,6 +58,22 @@
 
   &__side {
     line-height: 1;
+  }
+
+  &__logo {
+    &-large {
+      @media #{$mobile} {
+        display: none;
+      }
+    }
+
+    &-small {
+      display: none;
+
+      @media #{$mobile} {
+        display: inline-block;
+      }
+    }
   }
 
   &__alert {
