@@ -5,7 +5,7 @@ const store = createStore({
     return {
       teams: [],
       filteredTeams: [],
-      followed: [],
+      followed: {},
     };
   },
 
@@ -16,8 +16,12 @@ const store = createStore({
     filterTeams(state, filteredTeams) {
       state.filteredTeams = filteredTeams;
     },
-    setFollowed(state, followed) {
-      state.followed = followed;
+    setFollowed(state, { id, value }) {
+      if (state.followed[id]) {
+        delete state.followed[id];
+      } else {
+        state.followed = { ...state.followed, [id]: value };
+      }
     },
   },
 
@@ -30,9 +34,8 @@ const store = createStore({
       commit("filterTeams", filteredTeams);
     },
 
-    setFollowed({ commit }, followed) {
-      commit("setFollowed", followed);
-      console.log(followed);
+    setFollowed({ commit }, { id, value }) {
+      commit("setFollowed", { id, value });
     },
   },
 
@@ -47,6 +50,10 @@ const store = createStore({
 
     allFollowed(state) {
       return state.followed;
+    },
+
+    followedCount(state) {
+      return Object.keys(state.followed).length;
     },
   },
 });

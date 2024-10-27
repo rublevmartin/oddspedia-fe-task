@@ -28,12 +28,9 @@
     </div>
 
     <div class="panel__actions">
-      <button v-if="checkIfFollowed" class="btn active" @click="unfollow">
-        Followed
-      </button>
-
-      <button v-else class="btn" @click="follow">
-        Follow
+      <button class="btn" @click="follow" :class="{ 'active': followedLocal }">
+        <span v-if="followedLocal">Followed</span>
+        <span v-else>Follow</span>
       </button>
     </div>
   </div>
@@ -64,8 +61,6 @@ export default {
       },
 
       followedLocal: false,
-      followIndex: 0,
-      followTimeout: false
     };
   },
 
@@ -144,136 +139,18 @@ export default {
         }
       }
     },
-
-    checkIfFollowed() {
-      const newArray = this.allFollowed;
-
-      newArray.forEach((element) => {
-        if (element == this.team.id) {
-          this.followedLocal = true;
-        }
-      });
-
-      return this.followedLocal;
-    }
   },
 
   methods: {
     follow() {
-      if (!this.followTimeout) {
-        let newArray = this.allFollowed;
-        this.followIndex = newArray.length;
-        newArray.push(this.team.id);
-        this.setFollowed(newArray);
+      const newArray = this.allFollowed;
 
-        this.followTimeout = true;
+      this.setFollowed({ id: this.team.id, value: this.team.name });
 
-        setTimeout(() => {
-          this.followTimeout = false;
-        }, 10);
-      }
-    },
-
-    unfollow() {
-      if (!this.followTimeout) {
-        console.log('okay')
-        const newArray = this.allFollowed;
-        const finalArr = newArray.splice(this.followIndex, 1);
-        this.followedLocal = false;
-
-        this.setFollowed(finalArr);
-
-        this.followTimeout = true;
-
-        setTimeout(() => {
-          this.followTimeout = false;
-        }, 10);
-      }
+      this.followedLocal = !this.followedLocal;
     },
 
     ...mapActions(['setFollowed']),
   }
 };
 </script>
-
-<style scoped lang="scss">
-.panel {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 5px 15px 5px 14px;
-  transition: background-color .2s;
-
-  &.active,
-  &:hover {
-    background-color: $base-color;
-
-    .panel__image {
-      background-color: $white-color;
-    }
-  }
-
-  strong {
-    font-weight: inherit;
-    color: $accent-color;
-  }
-
-  &__body {
-    display: flex;
-    align-items: center;
-  }
-
-  &__image {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 40px;
-    height: 40px;
-    margin-right: 15px;
-    border-radius: 20px;
-    background-color: $base-color;
-    transition: background-color .2s;
-  }
-
-  &__entry {
-    color: $disabled-color;
-    font-size: 11px;
-  }
-
-  &__title {
-    line-height: 1.36;
-    font-weight: 500;
-    font-family: $font-primary;
-    font-style: normal;
-  }
-
-  &__icon {
-    display: inline-block;
-    margin: 0 0 2px 12px;
-  }
-
-  &__subtitle {
-    position: relative;
-    margin: 1px 0 0 6px;
-    font-weight: 12;
-    line-height: 1.17;
-    color: $disabled-color;
-
-    &:before {
-      content: '';
-      position: absolute;
-      display: inline-block;
-      top: 50%;
-      left: -26px;
-      height: 10px;
-      margin-top: -5px;
-      border-right: 1px solid $base-darker-color;
-    }
-  }
-
-  &__row {
-    display: flex;
-    align-items: center;
-  }
-}
-</style>
