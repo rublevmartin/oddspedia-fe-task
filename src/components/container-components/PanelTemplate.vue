@@ -28,8 +28,8 @@
     </div>
 
     <div class="panel__actions">
-      <button class="btn" @click="follow" :class="{ 'active': followedLocal }">
-        <span v-if="followedLocal">Followed</span>
+      <button class="btn" @click="follow" :class="{ 'active': this.team.id in this.allFollowed }">
+        <span v-if="this.team.id in this.allFollowed">Followed</span>
         <span v-else>Follow</span>
       </button>
     </div>
@@ -58,9 +58,7 @@ export default {
         firstPart: "",
         secondPart: "",
         thirdPart: "",
-      },
-
-      followedLocal: false,
+      }
     };
   },
 
@@ -94,10 +92,6 @@ export default {
 
   computed: {
     ...mapGetters(['allFollowed']),
-
-    followedTeams() {
-      return this.allFollowed;
-    },
 
     firstPartFunc() {
       if (!this.timeOutInProggress) {
@@ -146,8 +140,6 @@ export default {
       const newArray = this.allFollowed;
 
       this.setFollowed({ id: this.team.id, value: this.team.name });
-
-      this.followedLocal = !this.followedLocal;
     },
 
     ...mapActions(['setFollowed']),

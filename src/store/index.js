@@ -1,11 +1,15 @@
 import { createStore } from "vuex";
 
+function saveToSessionStorage(followed) {
+  sessionStorage.setItem("followed", JSON.stringify(followed));
+}
+
 const store = createStore({
   state() {
     return {
       teams: [],
       filteredTeams: [],
-      followed: {},
+      followed: JSON.parse(sessionStorage.getItem("followed")) || {},
     };
   },
 
@@ -22,6 +26,8 @@ const store = createStore({
       } else {
         state.followed = { ...state.followed, [id]: value };
       }
+
+      saveToSessionStorage(state.followed);
     },
   },
 
