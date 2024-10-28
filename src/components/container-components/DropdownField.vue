@@ -1,89 +1,77 @@
 <template>
   <div v-if="allFilteredTeams.length > 0" class="dropdown-field">
-    <PanelTemplate v-for="team in allFilteredTeams" :team="team" :isActive="false" :searchValue="searchValue"
-      :searchValueLength="searchValueLength" :timeOutInProggress="timeOutInProggress" />
+    <PanelTemplate v-for="(team, index) in allFilteredTeams" :team="team" :isActive="activeItem === index"
+      :searchValue="searchValue" :searchValueLength="searchValueLength" :timeOutInProggress="timeOutInProggress"
+      @mouseenter="setActiveItem(index)" @mouseleave="deactivatePanel" />
   </div>
 
   <NoResults v-else-if="searchValueLength > 2 && !timeOutInProggress" />
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapGetters } from 'vuex';
 import PanelTemplate from './PanelTemplate.vue';
 import NoResults from './NoResults.vue';
 
 export default {
+  data() {
+    return {
+      activeItem: -1
+    }
+  },
+
   components: {
     PanelTemplate,
     NoResults
   },
 
   computed: {
-    ...mapGetters(['allTeams', 'allFilteredTeams'])
+    ...mapGetters(['allFilteredTeams'])
   },
 
-  data() {
-    return {
-      searchValue: "",
-      searchValueLength: 0,
-      timeOutInProggress: false,
-      timeoutID: 0,
-    };
+  props: {
+    searchValue: {
+      type: String,
+      required: true
+    },
+    searchValueLength: {
+      type: Number,
+      required: true
+    },
+    timeOutInProggress: {
+      Type: Boolean,
+      required: true
+    }
   },
 
   methods: {
-    handleSearchInput(event) {
-      this.searchValue = event.target.value;
-      this.searchValueLength = this.searchValue.length;
+    deactivatePanel() {
+      this.activeItem = -1;
+    },
 
-      clearTimeout(this.timeoutID);
-      this.timeOutInProggress = false;
+    setActiveItem(id) {
+      this.activeItem = id;
+    },
 
-      if (this.searchValueLength > 2) {
-        this.timeOutInProggress = true;
-
-        this.timeoutID = setTimeout(() => {
-          this.filterNames(this.allTeams, this.searchValue);
-          this.timeOutInProggress = false;
-        }, 300);
-      } else {
-        this.filterTeams([]);
+    handleKeyPress(event) {
+      if (event.key === "ArrowUp") {
+        if (this.activeItem > 0) {
+          this.activeItem--;
+        }
+      } else if (event.key === "ArrowDown") {
+        if (this.activeItem < this.allFilteredTeams.length - 1) {
+          this.activeItem++;
+        }
       }
     },
+  },
 
-    clearSearch() {
-      this.searchValue = "";
-      this.searchValueLength = 0;
-      this.filterTeams([]);
-    },
+  mounted() {
+    window.addEventListener("keydown", this.handleKeyPress);
+  },
 
-    filterNames(data, string) {
-      const filteredTeams = [];
-      const searchString = string.toLowerCase();
-
-      data.forEach(element => {
-        const checkValues = [element.name, element.stadium];
-        let stringAvailable = false;
-
-        element.leagues.forEach(league => {
-          checkValues.push(league);
-        })
-
-        checkValues.forEach(value => {
-          if (value.toLowerCase().includes(searchString)) {
-            stringAvailable = true;
-          }
-        });
-
-        if (stringAvailable) {
-          filteredTeams.push(element);
-        }
-      });
-
-      this.filterTeams(filteredTeams);
-    },
-
-    ...mapActions(['filterTeams']),
+  beforeUnmount() {
+    window.removeEventListener("keydown", this.handleKeyPress);
   }
 }
 </script>
@@ -91,46 +79,5 @@ export default {
 <style scoped lang="scss">
 .dropdown-field {
   padding-top: 4px;
-}
-
-.field {
-  position: relative;
-  padding: 0 15px 6px;
-
-  &__inner {
-    width: 100%;
-    height: 36px;
-    line-height: 36px;
-    border-radius: 18px;
-    padding: 0 42px;
-    border: 0;
-    font-size: 13px;
-    color: $dark-color;
-    background-color: $base-color;
-
-    &::placeholder {
-      color: $disabled-color;
-    }
-  }
-
-  &__btn {
-    border: 0;
-    background-color: transparent;
-    position: absolute;
-    left: 29px;
-    top: 10px;
-    cursor: pointer;
-    transition: transform .2s;
-
-    &:hover {
-      transform: scale(1.2);
-    }
-
-    &--right {
-      left: auto;
-      top: 12px;
-      right: 30px;
-    }
-  }
 }
 </style>

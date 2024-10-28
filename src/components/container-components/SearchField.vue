@@ -12,27 +12,21 @@
     </button>
   </div>
 
-  <div v-if="allFilteredTeams.length > 0" class="dropdown-field">
-    <PanelTemplate v-for="team in allFilteredTeams" :team="team" :isActive="false" :searchValue="searchValue"
-      :searchValueLength="searchValueLength" :timeOutInProggress="timeOutInProggress" />
-  </div>
-
-  <NoResults v-else-if="searchValueLength > 2 && !timeOutInProggress" />
+  <DropdownField :searchValue="searchValue" :searchValueLength="searchValueLength"
+    :timeOutInProggress="timeOutInProggress" />
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import PanelTemplate from './PanelTemplate.vue';
-import NoResults from './NoResults.vue';
+import DropdownField from './DropdownField.vue';
 
 export default {
   components: {
-    PanelTemplate,
-    NoResults
+    DropdownField
   },
 
   computed: {
-    ...mapGetters(['allTeams', 'allFilteredTeams'])
+    ...mapGetters(['allTeams'])
   },
 
   data() {
@@ -102,10 +96,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.dropdown-field {
-  padding-top: 4px;
-}
-
 .field {
   position: relative;
   padding: 0 15px 6px;

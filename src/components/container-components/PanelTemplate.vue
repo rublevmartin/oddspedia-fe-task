@@ -1,5 +1,5 @@
 <template>
-  <div class="panel" :class="{ active: isPanelActive }" @mouseenter="activatePanel" @mouseleave="deactivatePanel">
+  <div class="panel" :class="{ active: isActive }">
     <div class="panel__body">
       <div class="panel__image">
         <img src="/team-placeholder.png" alt="Team Placeholder"
@@ -42,8 +42,6 @@ import { mapActions, mapGetters } from 'vuex';
 export default {
   data() {
     return {
-      isPanelActive: false,
-
       name: {
         firstPart: "",
         secondPart: "",
@@ -144,18 +142,10 @@ export default {
 
     handleKeyPress(event) {
       if (event.key === "Enter") {
-        if (this.isPanelActive) {
+        if (this.isActive) {
           this.follow();
         }
       }
-    },
-
-    activatePanel() {
-      this.isPanelActive = true;
-    },
-
-    deactivatePanel() {
-      this.isPanelActive = false;
     },
 
     ...mapActions(['setFollowed']),
