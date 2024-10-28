@@ -32,7 +32,6 @@ export default {
 
         return JSON.parse(newText);
       } catch (error) {
-        console.error("Error fetching data:", error);
         return null;
       }
     },
@@ -42,12 +41,7 @@ export default {
 
       if (data) {
         const footballTeams = data.football_teams;
-        console.log('Fetched data:', footballTeams);
         this.setTeams(footballTeams);
-
-        //this.filterNames(footballTeams, "Stad");
-      } else {
-        console.error('Failed to fetch data or invalid JSON.');
       }
     },
 

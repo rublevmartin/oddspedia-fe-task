@@ -1,17 +1,4 @@
 <template>
-  <div class="field">
-    <button class="field__btn">
-      <img src="/search.svg" alt="Search Teams">
-    </button>
-
-    <input type="text" v-model="searchValue" placeholder="Search for a team" @input="handleSearchInput"
-      class="field__inner">
-
-    <button v-if="searchValueLength > 0" @click="clearSearch" class="field__btn field__btn--right">
-      <img src="/close.svg" alt="Close Search">
-    </button>
-  </div>
-
   <div v-if="allFilteredTeams.length > 0" class="dropdown-field">
     <PanelTemplate v-for="team in allFilteredTeams" :team="team" :isActive="false" :searchValue="searchValue"
       :searchValueLength="searchValueLength" :timeOutInProggress="timeOutInProggress" />
